@@ -3,20 +3,20 @@ subtitle: Personal Blog
 description: >- # this means to ignore newlines until "baseurl:"
   devlopr-jekyll is a Jekyll Theme Built For Developers
 
-url: "https://tjan90.github.io" # the base hostname & protocol for your site, e.g. https://example.github.io
+url: "https://tjan90.github.io/" # the base hostname & protocol for your site, e.g. https://example.github.io
 baseurl: "/code-blog" # the subpath of your site, e.g. /blog
 
 urls:
     - text: About Me
-      url: /Portfolio
+      url: Portfolio
     - text: Blog
-      url: /code-blog/blog
+      url: code-blog/blog
     #- text: Gallery
     #  url: /gallery
     #- text: Shop
     #  url : /shop
     - text: Contact Me
-      url : /code-blog/contact
+      url : code-blog/contact
     #- text: Styleguide
     #  url: /styleguide
     #- text: Get Started
