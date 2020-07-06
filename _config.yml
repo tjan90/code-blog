@@ -8,15 +8,15 @@ baseurl: "/code-blog" # the subpath of your site, e.g. /blog
 
 urls:
     - text: About Me
-      url: Portfolio
+      url: Portfolio/
     - text: Blog
-      url: code-blog/blog
+      url: code-blog/blog/
     #- text: Gallery
     #  url: /gallery
     #- text: Shop
     #  url : /shop
     - text: Contact Me
-      url : code-blog/contact
+      url : code-blog/contact/
     #- text: Styleguide
     #  url: /styleguide
     #- text: Get Started
@@ -84,13 +84,13 @@ flickr_username: none
 hyvor_talk_website_id: 476
 
 # wakatime username (coding activity)
-wakatime_username: sujaykundu777
+wakatime_username: tjan90
 
 # mailchimp embedded form url (newsletter):
 mailchimp_form_url: https://sujaykundu.us10.list-manage.com/subscribe/post?u=50bab1c85eae24ecfb0f68361&amp;id=3a2dd721d0
 
 # formspree (contact form)
-formspree_email: johndoe@gmail.com
+formspree_email: tjan90@yahoo.com
 
 # syntax highlighter
 markdown: kramdown
