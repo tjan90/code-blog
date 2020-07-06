@@ -10,13 +10,13 @@ urls:
     - text: About Me
       url: /Portfolio
     - text: Blog
-      url: code-blog/blog
+      url: /code-blog/blog
     #- text: Gallery
     #  url: /gallery
     #- text: Shop
     #  url : /shop
     - text: Contact Me
-      url : code-blog/contact
+      url : /code-blog/contact
     #- text: Styleguide
     #  url: /styleguide
     #- text: Get Started
