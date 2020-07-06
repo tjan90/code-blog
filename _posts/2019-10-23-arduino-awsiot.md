@@ -2,7 +2,7 @@
 layout: post
 author: Tanveer jan
 title: Using AWS IoT with Arduino MKR
-date: 2020-10-23
+date: 2019-10-23
 thumbnail: /assets/img/posts/Arduino.jpg
 category: Arduino
 summary: Temperature data in AWS-IoT dashboard
