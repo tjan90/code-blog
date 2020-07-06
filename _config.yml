@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 title: Tanveer Jan
 subtitle: Personal Blog
 description: >- # this means to ignore newlines until "baseurl:"
   devlopr-jekyll is a Jekyll Theme Built For Developers
 
+=======
+title: devlopr
+subtitle: A Jekyll Theme Built for Developers
+description: Tanveer Jan blog
+>>>>>>> 963900e818bb18ea36823b6b5dfbafece6d5b88a
 url: "https://tjan90.github.io" # the base hostname & protocol for your site, e.g. https://example.github.io
 baseurl: "/code-blog" # the subpath of your site, e.g. /blog
 
@@ -67,14 +73,24 @@ author_project_details:
                 visibility: true
 
 # social links
+<<<<<<< HEAD
 twitter_username: Tanveer_jan90
+=======
+twitter_username: tanveer_jan90
+>>>>>>> 963900e818bb18ea36823b6b5dfbafece6d5b88a
 github_username:  tjan90
 facebook_username: tjan90
 linkedin_username: m-tanveer-jan
 behance_username: none
+<<<<<<< HEAD
 instagram_username: none
 medium_username: none
 telegram_username: nodes_to_index
+=======
+instagram_username: tanveer_jan
+medium_username: none
+telegram_username: none
+>>>>>>> 963900e818bb18ea36823b6b5dfbafece6d5b88a
 dribbble_username: none
 flickr_username: none
 
