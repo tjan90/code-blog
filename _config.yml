@@ -113,7 +113,7 @@ algolia:
 # pagination of posts
 paginate: 4
 per_page: 4
-paginate_path: "/code-blog/blog/page/:num/"
+paginate_path: "/blog/page/:num/"
 
 # minify
 # compress_html:
