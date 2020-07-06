@@ -2,7 +2,7 @@
 layout: post
 author: Tanveer jan
 title: Web Application for generating hypergraphs
-date: 2020-04-14
+date: 2019-04-01
 thumbnail: /assets/img/posts/hypergraph.png
 category: jekyll
 summary: Auto-generate responsive and interactive hypergrphs
