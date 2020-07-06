@@ -3,7 +3,7 @@ layout: post
 author: Tanveer Jan
 title:  Connecting Arduino with Raspberry
 date:   2020-01-17
-thunbnail: 
+thunbnail: /assets/img/posts/Arduino.jpg
 category: Arduino
 summary: Working with arduino and raspberry pi for sending information
 ---
