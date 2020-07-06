@@ -43,7 +43,7 @@ layout: default
                 {% elsif page == 1 %}
                   <li class="pagination-link"><a href="/code-blog/blog">{{ page }}</a></li>
                 {% else %}
-                  <li class="pagination-link"><a href="{{ site.paginate_path | prepend: site.url | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a></li>
+                  <li class="pagination-link"><a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a></li>
                 {% endif %}
               {% endfor %}
 
