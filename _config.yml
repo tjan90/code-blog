@@ -8,15 +8,15 @@ baseurl: "/code-blog" # the subpath of your site, e.g. /blog
 
 urls:
     - text: About Me
-      url: /Portfolio/
+      url: /Portfolio
     - text: Blog
-      url: /blog
+      url: code-blog/blog
     #- text: Gallery
     #  url: /gallery
     #- text: Shop
     #  url : /shop
     - text: Contact Me
-      url : /contact
+      url : code-blog/contact
     #- text: Styleguide
     #  url: /styleguide
     #- text: Get Started
