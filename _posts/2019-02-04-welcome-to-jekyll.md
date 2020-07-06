@@ -3,7 +3,9 @@ layout: post
 author: Tanveer Jan
 title:  Connecting Arduino with Raspberry
 date:   2020-01-17
-categories: Arduino
+thunbnail: 
+category: Arduino
+summary: Working with arduino and raspberry pi for sending information
 ---
 Application designed to sending data to user via MQTT. Arduino acts as the sensor connected via WiFi and communicate with broker, which is installed in Raspberry. MQTT Client app is required in ur phone to monitor the data you will receive.
 
@@ -30,37 +32,36 @@ sudo apt-key add mosquitto-repo.gpg.key
 
 
 Then make the repository available to apt
-{% highlight console%}
+{% highlight console %}
 cd /etc/apt/sources.list.d/
-{% endhightlight%}
+{% endhightlight %}
 
 Enter the following
 
 for wheezy
-```
+{% highlight console%}
 sudo wget http://repo.mosquitto.org/debian/mosquitto-wheezy.list
+{% endhighlight %}
 
-```
 for jessie
-```
+{% highlight console%}
 sudo wget http://repo.mosquitto.org/debian/mosquitto-wheezy.list
-
-```
+{% endhighlight %}
 
 to install the mqtt mosquitto for the raspberry pi follow the below steps use sudo before the command if not using root
-```
+{% highlight console%}
 sudo -i
-```
+{% endhighlight %}
 The above command is not mandatory ,it is if you wish to use root or you will need to prefix each below command with sudo eg sudo apt-get update
 
 The below command is used to update the source list
-```
+{% highlight console%}
 apt-get update
-```
+{% endhighlight %}
 After updating type the following commands to install mosquitto broker as shown in the image 1.
-```
+{% highlight console%}
 apt-get install mosquitto
-```
+{% endhighlight %}
 the above command is to install mqtt mosquitto broker.
 
 
@@ -73,7 +74,7 @@ WiFi details are found in arduino_secrets.h file that is int he project director
 - MQTT broker details\n
 MQTT broker details are IP address of the broker, Port of broker and topic to which device is subscribed.
 
-```
+{% highlight console%}
 #include <ArduinoMqttClient.h>
 #include <WiFiNINA.h> // for MKR1000 change to: #include <WiFi101.h>
 #include <DHT.h>
