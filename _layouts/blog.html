@@ -35,13 +35,13 @@ layout: default
                 <li class="pagination-link disabled"><span aria-hidden="true">&laquo;</span></li>
               {% endif %}
 
-              <li class="pagination-link" ><a href="/blog">First</a></li>
+              <li class="pagination-link" ><a href="/code-blog/blog">First</a></li>
 
               {% for page in (1..paginator.total_pages) %}
                 {% if page == paginator.page %}
                   <li class="active pagination-link"><a>{{ page }}<span class="sr-only">(current)</span></a></li>
                 {% elsif page == 1 %}
-                  <li class="pagination-link"><a href="/blog">{{ page }}</a></li>
+                  <li class="pagination-link"><a href="/code-blog/blog">{{ page }}</a></li>
                 {% else %}
                   <li class="pagination-link"><a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a></li>
                 {% endif %}
