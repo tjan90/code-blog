@@ -3,7 +3,7 @@ layout: post
 author: Tanveer jan
 title: Face Denoising Neural Network
 date: 2020-04-14
-thumbnail: /assets/img/posts/object-detector.png
+thumbnail: /assets/img/posts/face-denoise.png
 category: Machine-Learning
 summary: Clean noised images with this deep neural network.
 ---
