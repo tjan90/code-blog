@@ -28,9 +28,9 @@ layout: default
         <br />
 
         <ul>
-          {% for post in site.posts limit:5 %}
+          {% for post in site.posts limit:10 %}
           <li class="article-card">
-            <a href="{{site.baseurl}}{{post.url}}" class="article-card-link">
+            <a href="{{site.url}}{{site.baseurl}}{{post.url}}" class="article-card-link">
               <div id="article-container">
                 <div id="article-img">
                   <img
