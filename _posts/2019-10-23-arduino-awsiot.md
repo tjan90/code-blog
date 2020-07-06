@@ -7,109 +7,32 @@ thumbnail: /assets/img/posts/Arduino.jpg
 category: arduino
 summary: Temperature data in AWS-IoT dashboard
 ---
+This application transmits temperature and humidity from arduino to AWS IoT through wireless connection(WiFi). AWS IoT then store the record into DynamoDB.
 
-Application designed to sending data to user via MQTT. Arduino acts as the sensor connected via WiFi and communicate with broker, which is installed in Raspberry. MQTT Client app is required in ur phone to monitor the data you will receive.
-
-###Hardware Requirements:
-Arduino Uno WiFi Rev2
-Raspberry Pi 3B
-LCD Display (Optional)
-MQTTClient (Andriod/iOS).
-
-
-###Setting Up:
-####Raspberry Pi
-Firs we need to setup the raspberry to work as broker, so we need to install mosquitto.
-
-Here is the link to setup mosquitto on raspberry.
-
-To use the new repository you should first import the repository package signing key follow the below comman, the wget command is used to download single file and stores in a current directory.
-
-```
-wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
-
-sudo apt-key add mosquitto-repo.gpg.key
-```
-
-
-Then make the repository available to apt
-```
-cd /etc/apt/sources.list.d/
-```
-
-Enter the following
-
-for wheezy
-```
-sudo wget http://repo.mosquitto.org/debian/mosquitto-wheezy.list
-
-```
-for jessie
-```
-sudo wget http://repo.mosquitto.org/debian/mosquitto-wheezy.list
-
-```
-
-to install the mqtt mosquitto for the raspberry pi follow the below steps use sudo before the command if not using root
-```
-sudo -i
-```
-The above command is not mandatory ,it is if you wish to use root or you will need to prefix each below command with sudo eg sudo apt-get update
-
-The below command is used to update the source list
-```
-apt-get update
-```
-After updating type the following commands to install mosquitto broker as shown in the image 1.
-```
-apt-get install mosquitto
-```
-the above command is to install mqtt mosquitto broker.
-
-
-####Arduino
-Below is the code to setup wifi connection and credential for connect to raspberry.
-
-Certain things must be configured in order to make this network
-- WiFi credentials\n
-WiFi details are found in arduino_secrets.h file that is int he project directory, process is same as we did in the AWS IoT connection but without certificate. Certificate are only required if you are using SSL connection or some sort on encryption library like WolfSSL or SharkSSL.
-- MQTT broker details\n
-MQTT broker details are IP address of the broker, Port of broker and topic to which device is subscribed.
-
-```
+```c
+#include <ArduinoBearSSL.h>
+#include <ArduinoECCX08.h>
 #include <ArduinoMqttClient.h>
-#include <WiFiNINA.h> // for MKR1000 change to: #include <WiFi101.h>
+#include <WiFiNINA.h> // change to #include <WiFi101.h> for MKR1000
 #include <DHT.h>
 #include <BH1750.h>
 #include <Wire.h>
-#include <hd44780.h>
-#include <hd44780ioClass/hd44780_I2Cexp.h>
-hd44780_I2Cexp lcd;
-
 #include "arduino_secrets.h"
-///////please enter your sensitive data in the Secret tab/arduino_secrets.h
-char ssid[] = SECRET_SSID;        // your network SSID (name)
-char pass[] = SECRET_PASS;    // your network password (use for WPA, or use as key for WEP)
-BH1750 lightMeter(0x6B);
+BH1750 lightMeter(0x23);
 float lux;
-WiFiClient wifiClient;
-MqttClient mqttClient(wifiClient);
+
+/////// Enter your sensitive data in arduino_secrets.h
+const char ssid[]        = SECRET_SSID;
+const char pass[]        = SECRET_PASS;
+const char broker[]      = SECRET_BROKER;
+const char* certificate  = SECRET_CERTIFICATE;
 const int LCD_COLS = 20;
 const int LCD_ROWS = 4;
-int sensorpin = A0;
-int ledPin = 7;
-int val = 0;
+WiFiClient    wifiClient;            // Used for the TCP socket connection
+BearSSLClient sslClient(wifiClient); // Used for SSL/TLS connection, integrates with ECC508
+MqttClient    mqttClient(sslClient);
 
-const char broker[] = "172.20.10.6";
-int        port     = 1883;
-const char topic[]  = "arduino/simple";
-
-const long interval = 1000;
-unsigned long previousMillis = 0;
-
-int count = 0;
-
-#define DHTPIN 2     // what pin we're connected to
+#define DHTPIN A5     // what pin we're connected to
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -118,96 +41,157 @@ unsigned long lastMillis = 0;
 int lightVal;
 float temperatureVal;
 void setup() {
-  //Initialize serial and wait for port to open:
-  Serial.begin(9600);
+  Serial.begin(115200);
   dht.begin();
   Wire.begin();
   lightMeter.begin();
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
-    pinMode(ledPin, OUTPUT);
-  int status;
-  status = lcd.begin(LCD_COLS, LCD_ROWS);
+  while (!Serial);
 
-  // attempt to connect to Wifi network:
-  Serial.print("Attempting to connect to WPA SSID: ");
-  Serial.println(ssid);
+  if (!ECCX08.begin()) {
+    Serial.println("No ECCX08 present!");
+    while (1);
+  }
+
+  // Set a callback to get the current time
+  // used to validate the servers certificate
+  ArduinoBearSSL.onGetTime(getTime);
+
+  // Set the ECCX08 slot to use for the private key
+  // and the accompanying public certificate for it
+  sslClient.setEccSlot(0, certificate);
+
+  // Optional, set the client id used for MQTT,
+  // each device that is connected to the broker
+  // must have a unique client id. The MQTTClient will generate
+  // a client id for you based on the millis() value if not set
+  //
+  // mqttClient.setId("clientId");
+
+  // Set the message callback, this function is
+  // called when the MQTTClient receives a message
+  mqttClient.onMessage(onMessageReceived);
+}
+
+void loop() {
+
+  if (WiFi.status() != WL_CONNECTED) {
+    connectWiFi();
+  }
+
+  if (!mqttClient.connected()) {
+    // MQTT client is disconnected, connect
+    connectMQTT();
+  }
+
+  // poll for new MQTT messages and send keep alives
+  mqttClient.poll();
+
+  // publish a message roughly every 5 seconds.
+  if (millis() - lastMillis > 5000) {
+    lastMillis = millis();
+    int lightVal = analogRead(A4);
+    if(lightVal > 0)
+    {
+     publishMessage();
+    }
+
+  }
+}
+
+unsigned long getTime() {
+  // get the current time from the WiFi module  
+  return WiFi.getTime();
+}
+
+void connectWiFi() {
+  Serial.print("Attempting to connect to SSID: ");
+  Serial.print(ssid);
+  Serial.print(" ");
+
   while (WiFi.begin(ssid, pass) != WL_CONNECTED) {
     // failed, retry
     Serial.print(".");
     delay(5000);
   }
+  Serial.println();
 
   Serial.println("You're connected to the network");
-  Serial.println(WiFi.localIP());
-
-  // You can provide a unique client ID, if not set the library uses Arduino-millis()
-  // Each client must have a unique client ID
-  // mqttClient.setId("clientId");
-
-  // You can provide a username and password for authentication
-  // mqttClient.setUsernamePassword("username", "password");
-
-  Serial.print("Attempting to connect to the MQTT broker: ");
-  Serial.println(broker);
-
-  if (!mqttClient.connect(broker, port)) {
-    Serial.print("MQTT connection failed! Error code = ");
-    Serial.println(mqttClient.connectError());
-
-    while (1);
-  }
-
-  Serial.println("You're connected to the MQTT broker!");
   Serial.println();
 }
 
-void loop() {
-  lcd.setCursor(0,0);
-  lcd.print("Smart Agriculture");
-  lcd.setCursor(0,1);
+void connectMQTT() {
+  Serial.print("Attempting to MQTT broker: ");
+  Serial.print(broker);
+  Serial.println(" ");
 
-  val = analogRead(sensorpin);      
-  Serial.println(val);
-  lcd.print("Current Temp: ");
-  lcd.print(val-25);
-  lcd.setCursor(0,2);
-  lcd.print("Current Humid: ");
-  lcd.print(val);
-
-   lux = lightMeter.readLightLevel();
-    //lightVal = analogRead(A4);
-    temperatureVal = dht.readTemperature();
-  // call poll() regularly to allow the library to send MQTT keep alives which
-  // avoids being disconnected by the broker
-  mqttClient.poll();
-
-  // avoid having delays in loop, we'll use the strategy from BlinkWithoutDelay
-  // see: File -> Examples -> 02.Digital -> BlinkWithoutDelay for more info
-  unsigned long currentMillis = millis();
-
-  if (currentMillis - previousMillis >= interval) {
-    // save the last time a message was sent
-    previousMillis = currentMillis;
-
-    Serial.println("\nSending message to topic: ");
-    Serial.println(topic);
-    Serial.print("light:");
-    Serial.print(val);
-    Serial.print(", Temp: ");
-    Serial.print(val-25);
-
-
-    mqttClient.beginMessage(topic);
-    mqttClient.print("light:");
-    mqttClient.print(val);
-    mqttClient.print(", Temp: ");
-    mqttClient.print(val-25);
-    mqttClient.endMessage();
-
-
+  while (!mqttClient.connect(broker, 8883)) {
+    // failed, retry
+    Serial.print(".");
+    delay(5000);
   }
-  delay(3000);
+  Serial.println();
+
+  Serial.println("You're connected to the MQTT broker");
+  Serial.println();
+
+  // subscribe to a topic
+  mqttClient.subscribe("arduino/incoming");
 }
+
+void publishMessage() {
+  lux = lightMeter.readLightLevel();
+  //lightVal = analogRead(A4);
+  temperatureVal = dht.readTemperature();
+
+  Serial.println("Publishing message");
+  //Serial.println("Light:");
+  //Serial.println(lightVal);
+  Serial.println("temperature: ");
+  Serial.println(temperatureVal);
+  Serial.println("light : ");
+  Serial.println(lux);
+
+  // send message, the Print interface can be used to set the message contents
+  mqttClient.beginMessage("arduino/outgoing");
+  mqttClient.print("light:");
+  mqttClient.print(lux);
+  mqttClient.print(", Temp: ");
+  mqttClient.print(temperatureVal);
+  mqttClient.endMessage();
+}
+
+void onMessageReceived(int messageSize) {
+  // we received a message, print out the topic and contents
+  Serial.print("Received a message with topic '");
+  Serial.print(mqttClient.messageTopic());
+  Serial.print("', length ");
+  Serial.print(messageSize);
+  Serial.println(" bytes:");
+
+  // use the Stream interface to print the contents
+  while (mqttClient.available()) {
+    Serial.print((char)mqttClient.read());
+  }
+  Serial.println();
+
+  Serial.println();
+}
+```
+
+Seperate tab should also be created and filled the credentials for wireless connection and certificates fro AWS-IoT
+
+```c
+// Fill in  your WiFi networks SSID and password
+#define SECRET_SSID "SSID Here"
+#define SECRET_PASS "Password Here"
+
+// Fill in the hostname of your AWS IoT broker
+#define SECRET_BROKER "endpoint address here"
+
+// Fill in the boards public certificate
+const char SECRET_CERTIFICATE[] = R"(
+-----BEGIN CERTIFICATE-----
+YOUR AWS-IoT Certificate here
+-----END CERTIFICATE-----
+)";
 ```
