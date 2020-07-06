@@ -2,7 +2,7 @@
 layout: post
 author: Tanveer jan
 title: Data Analysis Extension for Google Chrome
-date: 2014-04-30
+date: 2019-04-30
 thumbnail: /assets/img/posts/chrome-extension.png
 category: Javacript
 summary: This extension analyze the change in prices of e-commerce websites 
