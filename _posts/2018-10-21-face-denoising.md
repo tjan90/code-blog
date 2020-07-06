@@ -10,7 +10,7 @@ summary: Clean noised images with this deep neural network.
 
 Provided models have been trained on 10.000 images 64x64, the dataset is custom made and based on [CelebA](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) with a little modification.
 In our project we had to find the best performing model by only looking at papers and testing it with 2 set of faces: *cropped* (as close to no-background as possible) and *large* (as much background as possible)
-![Results table](https://github.com/JustAnOwlz/Face-Denoising-CASACV/blob/master/output.png)
+[Results table](https://github.com/JustAnOwlz/Face-Denoising-CASACV/blob/master/output.png)
 - Top row is the input images, the original ones that the NN has never seen before
 - Second row is the noisy images, the input of our NNs
 - Third row is the output images for the WIN5_LARGE model
@@ -29,12 +29,12 @@ The models have been trained on a nVidia Quadro P4000, each epochs took 93-95 se
 
 ### How to run/install
 To run the model trainer:
-```
+{% highlight console%}
 git clone https://github.com/JustAnOwlz/Face-Denoising-CASACV.git
 cd Face-Denoising-CASACV
 pip install -r requirements.txt
 python model_trainer_edited.py
-```
+{% endhighlight %}
 
 The dataset examples are in the `file dataset` folder, to generate them you can use the file `script.py` but you have to modify it based on what you need.
 
