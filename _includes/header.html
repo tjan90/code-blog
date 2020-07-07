@@ -15,6 +15,15 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               {% for i in site.urls %}
+              {% if i.text == About Me%}
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="https://tjan90.github.io/Portfolio/"
+                  >{{ i.text }}</a
+                >
+              </li>
+              {% else %}
               <li class="nav-item">
                 <a
                   class="nav-link"
@@ -22,6 +31,7 @@
                   >{{ i.text }}</a
                 >
               </li>
+              {% endif %}
               {% endfor %}
             </ul>
           </div>
