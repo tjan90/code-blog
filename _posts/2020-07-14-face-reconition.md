@@ -2,7 +2,7 @@
 layout: post
 author: Tanveer jan
 title: Face recognition applicaiton in Docker using Facemet model
-date: 2018-12-23
+date: 2020-07-14
 thumbnail: /assets/img/posts/nuclio.png
 category: Machine Learning
 summary: Facial recognition application 
