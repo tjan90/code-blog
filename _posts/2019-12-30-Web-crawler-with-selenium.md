@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Tanveer jan
-title: Web Crawler with Selenium
+title: Web Crawler with BeautifulSoup
 date: 2018-12-23
 thumbnail: /assets/img/posts/we-scraper.jpeg
 category: Python
