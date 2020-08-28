@@ -26,33 +26,25 @@ layout: default
           </div>
         </div>
         <br />
-
-        <ul>
-          {% for post in site.posts limit:10 %}
-          <li class="article-card">
-            <a href="{{site.url}}{{site.baseurl }}{{post.url}}" class="article-card-link">
-              <div id="article-container">
-                <div id="article-img">
-                  <img
-                    src="{{site.url}}{{site.baseurl}}/assets/img/{{site.author_logo}}"
-                    width="50px"
-                    height="50px"
-                  />
-                </div>
-                <div id="article-link">
-                    <p class="recent-article-link">{{post.title}} <span style="color: #ccc; font-size: 15px;"> - <i><time datetime="{{ post.date }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time></i></span></p>
-                  </div>
-                  <div id="article-alert">
-                    <ul class="post-categories"></ul>
-                  {% for cat in post.category %}
-                  
-                   <li class="btn btn-sm btn-dark">{{cat}}</li>
-                  {% endfor %}
-                  </div>
-              </div>
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
+      
       </section>
     </div>
+
+
+    <div class="container">
+      {% for post in site.posts limit:10 %}
+      
+      <div class="row">
+          <div class="col-10"><p class=""><a href="{{site.url}}{{site.baseurl }}{{post.url}}">{{post.title}} </a><span style="color: #ccc; font-size: 15px;"> - <i><time datetime="{{ post.date }}" itemprop="datePublished">
+            {{ post.date | date: "%b %-d, %Y" }}</time></i></span></p></div>
+          
+            <div class="col-2">
+            <div class="btn btn-sm btn-dark">
+              {% for tag in post.category %}
+                {{tag | escape}}
+              {% endfor %}
+            </div>
+          </div>
+        </div> 
+      {% endfor %}
+        </div>

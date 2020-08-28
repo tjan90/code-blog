@@ -3,7 +3,7 @@ layout: post
 author: Tanveer jan
 title: Web Crawler with BeautifulSoup
 date: 2018-12-23
-thumbnail: /assets/img/posts/we-scraper.jpeg
+thumbnail: /assets/img/we-scraper.jpeg
 category: Python
 summary: Scraping data from the websites
 ---
@@ -14,7 +14,7 @@ This app scrape the price of the item in e-commerce site i.e amazon. After check
 Clone the repository by executing this command in terminal/command
 
 {% highlight console %}
-git clone [url-here](https://github.com/tjan90/Web-Crawler-with-BeautifulSoup.git)
+git clone [https://github.com/tjan90/Web-Crawler-with-BeautifulSoup.git](https://github.com/tjan90/Web-Crawler-with-BeautifulSoup.git)
 {% endhighlight %}
 
 open the folder and install the required libraries

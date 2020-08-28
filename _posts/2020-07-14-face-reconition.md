@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Tanveer jan
-title: Face recognition applicaiton in Docker using Facemet model
+title: Face recognition with Docker
 date: 2020-07-14
 thumbnail: /assets/img/posts/face.jpg
 category: Machine Learning
