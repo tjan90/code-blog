@@ -13,12 +13,12 @@ This app scrape the price of the item in e-commerce site i.e amazon. After check
 ### Installation
 Clone the repository by executing this command in terminal/command
 
-{% hightlight console %}
+{% highlight console %}
 git clone [url-here](https://github.com/tjan90/Web-Crawler-with-BeautifulSoup.git)
 {% endhighlight %}
 
 open the folder and install the required libraries
-{% hightlight console %}
+{% highlight console %}
 cd Web-Crawler-with-BeautifulSoup
 pip install requirements.txt
 python main.py
