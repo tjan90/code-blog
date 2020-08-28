@@ -8,8 +8,9 @@ category: Machine Learning
 summary: Facial recognition application 
 ---
 
-This application recognized face in video stream. The video stream need to passed as the parameter when doplying docker application.
+This application recognized face in video stream. The video stream need to passed as the parameter when deploying docker application.
 
+### Installation
 <h3>Docker</h3>
 
 You need to install docker in you machine. To install docker check this website
@@ -29,7 +30,8 @@ To directly pull image give the below command
 docker pull tjan90/event-procesing
 {%endhighlight%}
 
-after pulling the images you need to configure few things to deploy the container
+### Usage
+After pulling the images you need to configure few things to deploy the container
  - dataset foler
  - videostream
 
