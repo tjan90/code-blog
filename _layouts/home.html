@@ -33,9 +33,10 @@ layout: default
           
             <div class="col-2">
             <div class="btn btn-sm btn-dark">
-              {% for tag in post.category %}
-                {{tag | escape}}
-              {% endfor %}
+              
+                {% for category in post.category %}
+                 {{ category }}
+                {% endfor %}
             </div>
           </div>
         </div> 
