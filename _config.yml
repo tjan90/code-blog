@@ -7,7 +7,7 @@ url: "https://tjan90.github.io/code-blog/" # the base hostname & protocol for yo
 baseurl: "" # the subpath of your site, e.g. /blog
 
 urls:
-    - text: About Me
+    - text: Resume
       url: Portfolio/
     #- text: Blog
     #  url: blog/
