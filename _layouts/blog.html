@@ -11,7 +11,7 @@ layout: default-blog
               <div class="card-body">
                 <h4 class="card-title">{{ post.title }}</h4>
                 <p class="card-text">{{ post.summary }}</p>
-                <a href="{{ post.url | prepend: site.baseurl }}" class="btn btn-primary">Read More</a>
+                <a href="{{ post.url | prepend: site.baseurl | prepend: site.url}}" class="btn btn-primary">Read More</a>
               </div>
             </div>
             {% endfor %}
