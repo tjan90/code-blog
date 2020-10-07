@@ -4,7 +4,7 @@ author: Tanveer jan
 title: Face recognition with Docker
 date: 2020-07-14
 thumbnail: /assets/img/posts/face.jpg
-category: Machine Learning
+tags: python opencv machineLearning
 summary: Facial recognition application 
 ---
 

@@ -4,7 +4,7 @@ author: Tanveer jan
 title: Serverless Application for checking Movie's rating's
 date: 2018-12-23
 thumbnail: /assets/img/posts/nuclio.png
-category: NodeJS
+tags: nodejs docker nuclio
 summary: Get ratings for movie of you telegram channel through serverless platform
 ---
 Requesting details of movies or tv series to you telegram app using serverless platform. \

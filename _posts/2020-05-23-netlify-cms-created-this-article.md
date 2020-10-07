@@ -4,7 +4,7 @@ author: Tanveer jan
 title: Real-Time object detector with Tensorflow and OpenCV
 date: 2020-05-23
 thumbnail: /assets/img/posts/object-detector.png
-category: Machine-Learning
+tags: python opencv
 summary: Object detection using Tensorflow and OpenCV
 ---
 

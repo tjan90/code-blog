@@ -4,7 +4,7 @@ author: Tanveer jan
 title: Web Crawler with BeautifulSoup
 date: 2018-12-23
 thumbnail: /assets/img/we-scraper.jpeg
-category: Python
+tags: python scraper beautifulsoup
 summary: Scraping data from the websites
 ---
 ### Description

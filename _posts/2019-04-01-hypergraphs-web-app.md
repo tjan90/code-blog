@@ -4,7 +4,7 @@ author: Tanveer jan
 title: Web Application for generating hypergraphs
 date: 2019-04-01
 thumbnail: /assets/img/posts/hypergraph.png
-category: jekyll
+tags: jekyll bootstrap animate
 summary: Auto-generate responsive and interactive hypergrphs
 ---
 Responsive & Interactive Web Application for visualizing Hypergraphs.

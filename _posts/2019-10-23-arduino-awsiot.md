@@ -4,7 +4,7 @@ author: Tanveer jan
 title: Using AWS IoT with Arduino MKR
 date: 2019-10-23
 thumbnail: /assets/img/posts/Arduino.jpg
-category: Arduino
+tags: arduino awsiot
 summary: Temperature data in AWS-IoT dashboard
 ---
 This application transmits temperature and humidity from arduino to AWS IoT through wireless connection(WiFi). AWS IoT then store the record into DynamoDB.

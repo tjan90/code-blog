@@ -4,7 +4,7 @@ author: Tanveer jan
 title: Data Analysis Extension for Google Chrome
 date: 2019-04-30
 thumbnail: /assets/img/posts/chrome-extension.png
-category: Javacript
+tags: javascript markdown sheets googleapi
 summary: This extension analyze the change in prices of e-commerce websites 
 ---
 This is chrome web extension that is designed to analyze any object that will be triggered by double click. The data triggered from that will be sent to a google sheet that has to be
