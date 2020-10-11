@@ -10,7 +10,7 @@ summary: Facebook Clone with full funtionality
 
 ![facebook-clone](../assets/img/posts/facebook-clone.png)
 
-Github Repo : ![Facebook-Clone with React](https://github.com/tjan90/Facebook-Clone-React)
+Github Repo : [Facebook-Clone with React](https://github.com/tjan90/Facebook-Clone-React)
 
 ### Stack
  - ReactJS
