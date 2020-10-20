@@ -11,8 +11,8 @@ urls:
       url: Portfolio/
     #- text: Blog
     #  url: blog/
-    #- text: Gallery
-    #  url: /gallery
+    - text: Tools
+      url: /gallery
     #- text: Shop
     #  url : /shop
     - text: Contact Me
